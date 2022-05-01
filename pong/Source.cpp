@@ -14,8 +14,6 @@
 
 
 using namespace std;
-//const int _fieldWidth = BORDER_RIGHT + 1;
-//const int _fieldHeight = BORDER_BOT + 1;
 int arr[BORDER_BOT + 1][BORDER_RIGHT + 1];
 
 //Ball start position
@@ -47,7 +45,7 @@ enum ballDirection { UPRIGHT, RIGHT, DOWNRIGHT, DOWNLEFT, LEFT, UPLEFT };
 ballDirection direction;
 
 //func
-void startBallDirection(ballDirection& d);//chose random direction
+void startBallDirection();//chose random direction
 void frame(ball& ball, player& pp);//draw frame
 void reset(ball& ball, player& pp);//reset ball
 void menu();
@@ -60,7 +58,7 @@ void names();
 int main() {
 	menu();
 	names();
-	startBallDirection(direction);
+	startBallDirection();
 	action();
 
 	return 0;
@@ -74,9 +72,9 @@ void settings() {
 	startGame = true;
 }
 //randomise start ball direction
-void startBallDirection(ballDirection& d) {
+void startBallDirection() {
 	srand(time(NULL));
-	d = (ballDirection)(rand() % 5);
+	direction = (ballDirection)(rand() % 5);
 }
 
 //draw field, ball and rockets
@@ -198,7 +196,7 @@ void input() {
 	}
 }
 
-void ball_logic(ball& ball, player& pp, ballDirection& direction) {
+void ball_logic(ball& ball, player& pp) {
 	switch (direction) {   //ball movement 
 	case LEFT:
 		ball.X--;
@@ -228,13 +226,13 @@ void ball_logic(ball& ball, player& pp, ballDirection& direction) {
 	if (ball.X == BORDER_RIGHT) {
 		p1.points++;
 		reset(ball, playerPos);
-		startBallDirection(direction);
+		startBallDirection();
 	}
 	else
 		if (ball.X == BORDER_LEFT) {
 			p2.points++;
 			reset(ball, playerPos);
-			startBallDirection(direction);
+			startBallDirection();
 		}
 	//wall bounce
 
